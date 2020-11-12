@@ -8,7 +8,7 @@ class Detector {
   int maxDepth = 700; // max pixel que ve
   PImage depthImg; 
   /// Variables OpenCV
-  /// ------------ Actualizar el path
+  /// ------------ Actualizar el path:
   /// ------------ Buscar el archivo en el buscador y copiar el path 
   String path = "C:/Users/Julia/Documents/GitHub/InterfacezNoTactiles/Processig openCV/INT_OpenCv/xml/Hand.Cascade.1.xml";
   /////
@@ -42,7 +42,7 @@ class Detector {
     opencv2.loadImage(depthImg);
     //cursor_mano();
     encontrar_mano();
-    println("tam: ",ttam);
+    println("tam: ", ttam);
   }
 
   void mostrar_camaras( boolean cual) {
@@ -86,7 +86,7 @@ class Detector {
       }
     }
     if (hayMano(hands.length, hands2.length)) {
-      _dibujar_rectangulo(color(0, 255, 0), tx, ty, ttam);
+      //_dibujar_rectangulo(color(0, 255, 0), tx, ty, ttam);
     } 
     cursor_mano(hands, hands2);
   }
@@ -99,7 +99,11 @@ class Detector {
       x = lerp(dx, x, lerping);
       y = lerp(dy, y, lerping);
       noStroke();  
-      fill(255, 0, 0);
+      if (time == 0) {
+        fill(255, 0, 0);
+      } else {
+        fill(0, 0, 255);
+      }
       ellipse(x, y, 30, 30);
     } else if (!hayMano(hands.length, hands2.length) && ttam > 150) {
       textSize(48);
