@@ -27,7 +27,6 @@ void setup() {
 void draw () {
   background(0);
   detector.mostrar_camaras(cual);
-  //detector._rectangulos_todos();
   detector.medicion();
 }
 
