@@ -77,7 +77,9 @@ class Detector {
     Rectangle[] hands2 = opencv2.detect();
     for (int i =0; i<hands.length; i++) {
       for (int j=0; j<hands2.length; j++) {
-        if (dist(hands[i].x, hands[i].y, hands2[j].x, hands2[j].y)<25 && hands[i].width > 90 && hands[i].width < 200) {
+        if (dist(hands[i].x, hands[i].y, hands2[j].x, hands2[j].y)<25 
+          && dist(hands[i].x+hands[i].width, hands[i].y+hands[i].height, hands2[j].x+hands2[j].width, hands2[j].y+hands2[j].height)<25
+          && hands[i].width > 90 && hands[i].width < 200) {
           tx = hands[i].x;
           ty = hands[i].y;
           ttam = hands[i].width;
@@ -146,6 +148,12 @@ class Detector {
     }
   }
 
+  void mostrar_rectangulos(boolean prender) {
+    if (prender) {
+      _todas_detecciones(opencv, color(255, 0, 0));
+      _todas_detecciones(opencv2, color(0, 0, 255));
+    }
+  }
 
   /// fin clase
 }
