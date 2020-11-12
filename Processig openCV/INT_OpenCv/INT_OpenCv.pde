@@ -14,6 +14,7 @@ Detector detector;
 /// VARIABLES DE PRUEBA, SACAR DSP
 boolean cual = true;
 boolean prender = false;
+boolean recuadro = false;
 
 void setup() {
   size(640, 480);
@@ -29,7 +30,7 @@ void draw () {
   background(0);
   detector.mostrar_camaras(cual);
   detector.mostrar_rectangulos(prender);
-  detector.medicion();
+  detector.medicion(recuadro);
 }
 
 void keyPressed() {
@@ -37,5 +38,7 @@ void keyPressed() {
     cual = !cual;
   } else if (key == '2') {
     prender = !prender;
+  } else if (key == '3') {
+    recuadro = !recuadro;
   }
 }

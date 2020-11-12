@@ -20,6 +20,10 @@ class Detector {
   float tx = -10;
   float ty = -10;
   float ttam = 0;
+  /// Limites detector
+  float margen_diferencia = 35;
+  float area_min = 80;
+  float area_max = 200;
 
   Detector(OpenCV opencv_, OpenCV opencv2_, Kinect kinect_) {
     /// OpenCV
@@ -34,14 +38,14 @@ class Detector {
     depthImg = new PImage(kinect.width, kinect.height);
   }
 
-  void medicion() {
+  void medicion(boolean recuadro) {
     kinect.enableIR(true);
     kinect.enableMirror(true);
     opencv.loadImage(kinect.getVideoImage());
     _depthimg();
     opencv2.loadImage(depthImg);
 
-    _encontrar_mano();
+    _encontrar_mano(recuadro);
     println("tam: ", ttam);
   }
 
@@ -71,27 +75,27 @@ class Detector {
     return true;
   }
 
-  void _encontrar_mano() {
+  void _encontrar_mano(boolean recuadro) {
     // Compara la detección de los dos feeds y se queda con el rectangulo que aparezca en ambas detecciones
     Rectangle[] hands = opencv.detect();
     Rectangle[] hands2 = opencv2.detect();
     for (int i =0; i<hands.length; i++) {
       for (int j=0; j<hands2.length; j++) {
-        if (dist(hands[i].x, hands[i].y, hands2[j].x, hands2[j].y)<25 
-          && dist(hands[i].x+hands[i].width, hands[i].y+hands[i].height, hands2[j].x+hands2[j].width, hands2[j].y+hands2[j].height)<25
-          && hands[i].width > 90 && hands[i].width < 200) {
+        if (dist(hands[i].x, hands[i].y, hands2[j].x, hands2[j].y)< margen_diferencia 
+          && dist(hands[i].x, hands[i].y+hands[i].height, hands2[j].x, hands2[j].y+hands2[j].height)< margen_diferencia
+          && hands[i].width > area_min && hands[i].width < area_max) {
           tx = hands[i].x;
           ty = hands[i].y;
           ttam = hands[i].width;
           time = 0;
+          if (recuadro) {
+            _dibujar_rectangulo(color(0, 255, 0), tx, ty, ttam);
+          }
         } else {
           time += 0.1;
         }
       }
     }
-    if (hayMano(hands.length, hands2.length)) {
-      //_dibujar_rectangulo(color(0, 255, 0), tx, ty, ttam);
-    } 
     _cursor_mano(hands, hands2);
   }
 
