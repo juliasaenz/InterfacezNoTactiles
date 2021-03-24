@@ -11,12 +11,12 @@ String estado = "inicio";
 Timer timer = new Timer(6000);
 
 void setup() {
-  size(400, 225);
-  //size(1000,562);
+  //size(400, 225);
+  size(1000,562);
   frameRate(25);
   
   /* start oscP5, listening for incoming messages at port 12000 */
-  oscP5 = new OscP5(this, 2);
+  oscP5 = new OscP5(this, 3);
   myRemoteLocation = new NetAddress("127.0.0.1", 1);
   // Manda el mensaje directo al método con el mismo nombre
   oscP5.plug(this, "posicionMano", "/posicionMano");
