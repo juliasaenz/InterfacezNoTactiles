@@ -13,6 +13,7 @@ Kinect kinect;
 Detector detector;
 
 // NECESITA LA RUTA ABSOLUTA, ASÍ QUE HAY QUE CAMBIARLA POR COMPUTADORA
+//String rutaCascada = "C:/Users/Julia/Documents/GitHub/InterfacezNoTactiles/detector_openCV/Hand_haar_cascade.xml";
 String rutaCascada = "C:/Users/Julia/Documents/GitHub/InterfacezNoTactiles/detector_openCV/Hand.Cascade.1.xml";
 void setup() {
   size(640, 480);
@@ -20,10 +21,10 @@ void setup() {
   oscP5 = new OscP5(this, 1);
   opencv =  new OpenCV(this, 640, 480); 
   kinect = new Kinect(this);
-  kinect.initDepth();
+  kinect.initVideo();
   kinect.enableMirror(true);
   detector = new Detector(opencv, rutaCascada);
-  myRemoteLocation = new NetAddress("127.0.0.1",3);
+  myRemoteLocation = new NetAddress("127.0.0.1", 3);
 }
 
 void draw() {
@@ -33,8 +34,8 @@ void draw() {
   image(kinect.getVideoImage(), 0, 0);
 
   detector.medicion(kinect.getVideoImage());
-  
-  mandarMensaje(detector.x/width,detector.y/height);
+
+  mandarMensaje(detector.x/width, detector.y/height);
 }
 
 void mandarMensaje(float x, float y) {
@@ -43,5 +44,5 @@ void mandarMensaje(float x, float y) {
   // valores que se mandan
   myMessage.add(x);
   myMessage.add(y); 
-  oscP5.send(myMessage, myRemoteLocation); 
+  oscP5.send(myMessage, myRemoteLocation);
 }
