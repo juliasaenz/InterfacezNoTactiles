@@ -1,13 +1,11 @@
 class Detector {
-
-  Timer timer;
+  
   float x, y;
   int tam = 20;
 
   float easing = .06; //Variable para equilibrar el ruido
 
   Detector() {
-    timer = new Timer(5);
   }
 
   void medicion(int userId) {
