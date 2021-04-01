@@ -2,7 +2,7 @@ class Detector {
   OpenCV opencv;
   Timer timer;
   float x, y, px, py= -1;
-  int tam = 20;
+  int tam = 5;
   float lerping = .8;
 
   Detector(OpenCV opencv_, String ruta) {
@@ -25,41 +25,35 @@ class Detector {
       timer.guardarTiempo();
     } else {
       if (timer.pasoElTiempo()) {
-        text("no veo nada", 20, 20);
         px = -1;
         py = -1;
         x = -1;
         y = -1;
       }
     }
-    _mostrarDeteccionTodo(manos);
-    pushStyle();
-    noStroke();
-    fill(0, 0, 255);
-    ellipse(x, y, tam, tam);
-    popStyle();
+    // Descomentar cuando se este calibrando o comprobando la detección 
+    /*_mostrarAreaDeteccion(manos);
+    _mostrarPuntoDeteccion(x,y); */
   }
-
-  private void _mostrarDeteccion(Rectangle[] manos) {
-    //Muestra rectangulo con la mano detectada
-    if (manos.length > 0) {
-      noFill();
-      strokeWeight(3);
-      stroke(255, 0, 0);
-      rect(manos[0].x, manos[0].y, manos[0].width, manos[0].height);
-    }
-  }
-
-  private void _mostrarDeteccionTodo(Rectangle[] manos) {
+  
+  private void _mostrarAreaDeteccion(Rectangle[] manos) {
     //Muestra rectangulo con la mano detectada
     for (int i=0; i < manos.length; i++) {
       noFill();
       strokeWeight(3);
-      stroke(255, 0, 0);
+      stroke(0, 255, 0);
       rect(manos[i].x, manos[i].y, manos[i].width, manos[i].height);
     }
   }
-
+  
+  private void _mostrarPuntoDeteccion(float x, float y){
+    //Ver el punto
+    pushStyle();
+    noStroke();
+    fill(255,0, 0);
+    ellipse(x, y, tam, tam);
+    popStyle();
+  }
 
 
   // fin de clase
