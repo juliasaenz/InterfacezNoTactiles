@@ -1,32 +1,45 @@
 // Librerías
 import oscP5.*;
 import netP5.*;
-// Objetos
+
+// Objetos y Variables
 OscP5 oscP5;
 NetAddress myRemoteLocation;
 Boton botones[] = new Boton[4];
-//
+Boton bInicio;
+PImage fondo, inicio, cursor;
+PImage opcion[] = new PImage[4];
+
 float x, y = 0;
 String estado = "inicio";
-Timer timer = new Timer(6000);
+Timer timer = new Timer(3);
 
 void setup() {
   //size(400, 225);
-  size(1000,562);
-  frameRate(25);
-  
-  /* start oscP5, listening for incoming messages at port 12000 */
-  oscP5 = new OscP5(this, 3);
+  size(1000, 562);
+
+  oscP5 = new OscP5(this, 2);
   myRemoteLocation = new NetAddress("127.0.0.1", 1);
   // Manda el mensaje directo al método con el mismo nombre
   oscP5.plug(this, "posicionMano", "/posicionMano");
 
-  inicializarBotones(botones);
+
+  inicializarBotones();
+  inicializarImagenes();
 }
 
 void draw() {
   background(0, 0, 0);
   if (estado == "inicio") {
+    image(inicio, 0, 0);
+    if (bInicio.cualTag() != -1) {
+      timer.guardarTiempo();
+      bInicio.reseteoValores();
+      estado = "menu";
+    }
+    bInicio.dibujar(x, y);
+  } else if (estado == "menu") {
+    image(fondo, 0, 0);
     for (int i= 0; i<4; i++) {
       //chequear que botón fue seleccionado
       if (botones[i].cualTag() != -1) {
@@ -39,20 +52,19 @@ void draw() {
   } else {
     //opciones de estados
     if (estado.equals("opcion1")) {
-      background(200, 0, 0);
+      image(opcion[0], 0, 0);
     } else if (estado.equals("opcion2")) {
-      background(0, 200, 0);
+      image(opcion[1], 0, 0);
     } else if (estado.equals("opcion3")) {
-      background(0, 0, 200);
+      image(opcion[2], 0, 0);
     } else {
-      background(0);
+      image(opcion[3], 0, 0);
     }
     //volver al inicio cuando pase X tiempo
     if (timer.pasoElTiempo()) {
       estado = "inicio";
     }
   }
-  
-  //este es el "cursor" que probablemente dsp cambie
-  ellipse(x, y, 20, 20);
+
+  image(cursor, x, y);
 }

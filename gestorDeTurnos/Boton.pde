@@ -1,23 +1,28 @@
 class Boton {
   int tag;
   float x, y;
-  float unidadX = (width/7)*2;
-  float unidadY = height/5;
+  int unidadX = (width/6)*2;
+  int unidadY = height/4;
   int elegido = -1;
   boolean enZona, prevEnZona = false;
+  PImage img, imgSel;
   //timer
-  Timer timer = new Timer(4000);
+  Timer timer = new Timer(2);
 
-  Boton(int tag_, float x_, float y_) {
+  Boton(int tag_, float x_, float y_, String num) {
     tag = tag_;
     x = x_;
     y = y_;
+    img = loadImage("data/op"+num+".png");
+    imgSel = loadImage("data/opS"+num+".png");
+    img.resize(unidadX, unidadY);
+    imgSel.resize(unidadX, unidadY);
   }
 
   void dibujar(float posX, float posY) {
     prevEnZona = enZona;
-    rectMode(CENTER);  
     pushStyle();
+    imageMode(CENTER);
     if (posX > x-unidadX/2 && posX < x+unidadX/2 && posY > y-unidadY/2 && posY < y+unidadY/2) {
       enZona = true;
       // guardar tiempo cuando entre a una zona
@@ -28,17 +33,13 @@ class Boton {
       if (timer.pasoElTiempo()) {
         elegido = tag;
       }
-      fill(255, 0, 0);
+      image(imgSel, x, y);
+      timer.dibujar(width/2,(height/10)*9);
     } else {
-      fill(255, 255, 255);
+      image(img, x, y);
       elegido = -1;
       enZona = false;
     }
-    // todas estas cosas despues se van a ir
-    rect(x, y, unidadX, unidadY);
-    fill(0, 0, 0);
-    textSize(width/20);
-    text(tag, x, y);
     popStyle();
   }
 

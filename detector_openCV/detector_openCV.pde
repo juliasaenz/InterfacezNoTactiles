@@ -13,7 +13,6 @@ Kinect kinect;
 Detector detector;
 
 // NECESITA LA RUTA ABSOLUTA, ASÍ QUE HAY QUE CAMBIARLA POR COMPUTADORA
-//String rutaCascada = "C:/Users/Julia/Documents/GitHub/InterfacezNoTactiles/detector_openCV/Hand_haar_cascade.xml";
 String rutaCascada = "C:/Users/Julia/Documents/GitHub/InterfacezNoTactiles/detector_openCV/Hand.Cascade.1.xml";
 void setup() {
   size(640, 480);

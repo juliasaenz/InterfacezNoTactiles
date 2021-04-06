@@ -16,7 +16,6 @@ void setup() {
 void draw() {
   background(0);
   mandarMensaje(float(mouseX)/width,float(mouseY)/height);
-  //println(float(mouseX)/width+" "+float(mouseY)/height);
 }
 
 void mandarMensaje(float x, float y) {

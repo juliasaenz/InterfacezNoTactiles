@@ -11,9 +11,7 @@ class Timer {
   }
 
   boolean pasoElTiempo() {
-    //println(millis()-time, " ", espera);
     if (millis() - time >= espera) {
-      println("confirmo seleccion");
       return true;
     }
     return false;
