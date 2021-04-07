@@ -18,22 +18,24 @@ void setup() {
   size(640, 480);
 
   oscP5 = new OscP5(this, 1);
+  myRemoteLocation = new NetAddress("127.0.0.1", 3);
+
   opencv =  new OpenCV(this, 640, 480); 
+  detector = new Detector(opencv, rutaCascada);
+
   kinect = new Kinect(this);
   kinect.initVideo();
   kinect.enableMirror(true);
-  detector = new Detector(opencv, rutaCascada);
-  myRemoteLocation = new NetAddress("127.0.0.1", 3);
 }
 
 void draw() {
   background(0);
   kinect.enableIR(true);
 
-  image(kinect.getVideoImage(), 0, 0);
+  // Descomentar cuando se este calibrando o comprobando la detección
+  //image(kinect.getVideoImage(), 0, 0);
 
   detector.medicion(kinect.getVideoImage());
-
   mandarMensaje(detector.x/width, detector.y/height);
 }
 
