@@ -2,7 +2,7 @@ class Detector {
   OpenCV opencv;
   Timer timer;
   float x, y= -1;
-  float easing = .06;
+  float easing = .05;
 
   Detector(OpenCV opencv_, String ruta) {
     opencv = opencv_;
@@ -13,7 +13,7 @@ class Detector {
   void medicion(PImage feed) {
     opencv.loadImage(feed);  
     // ScaleFactor, MinNeighbour, flags, minSize, maxSize
-    Rectangle [] manos = opencv.detect(1.1, 30, 0, 30, 250);
+    Rectangle [] manos = opencv.detect(1.05, 50, 0, 30, 250);
     if (manos.length > 0) {
       int max = -1;
       int max_tam = -1;
@@ -35,7 +35,7 @@ class Detector {
       }
     }
     // Descomentar cuando se este calibrando o comprobando la detección 
-    //_mostrarAreaDeteccion(manos);
+    _mostrarAreaDeteccion(manos);
     _mostrarPuntoDeteccion(x, y);
   }
 
