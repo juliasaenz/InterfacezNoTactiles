@@ -1,41 +1,44 @@
 class Detector {
   OpenCV opencv;
   Timer timer;
-  float x, y, px, py= -1;
-  int tam = 5;
-  float lerping = .8;
+  float x, y= -1;
+  float easing = .06;
 
   Detector(OpenCV opencv_, String ruta) {
     opencv = opencv_;
     opencv.loadCascade(ruta, true);
-    timer = new Timer(5);
+    timer = new Timer(2);
   }
 
   void medicion(PImage feed) {
     opencv.loadImage(feed);  
     // ScaleFactor, MinNeighbour, flags, minSize, maxSize
-    Rectangle [] manos = opencv.detect(1.05, 50, 1, 30, 200);
+    Rectangle [] manos = opencv.detect(1.1, 30, 0, 30, 250);
     if (manos.length > 0) {
-      px = x;
-      py = y;
-      if ( dist(px, py, x, y) < 20) {
-        x = lerp(px, manos[0].x + manos[0].width/2, lerping);
-        y = lerp(py, manos[0].y + manos[0].height/2 + 20, lerping);
+      int max = -1;
+      int max_tam = -1;
+      for (int i= 0; i<manos.length; i++) {
+        if (manos[i].width > max_tam) {
+          max = i;
+          max_tam = manos[i].width;
+        }
       }
+      float ax = (manos[max].x + manos[max].width/2) - x;
+      float ay = (manos[max].y + manos[max].height/2 + 20) - y;
+      x += ax * easing;
+      y += ay * easing;
       timer.guardarTiempo();
     } else {
       if (timer.pasoElTiempo()) {
-        px = -1;
-        py = -1;
         x = -1;
         y = -1;
       }
     }
     // Descomentar cuando se este calibrando o comprobando la detección 
-    /*_mostrarAreaDeteccion(manos);
-    _mostrarPuntoDeteccion(x,y); */
+    //_mostrarAreaDeteccion(manos);
+    _mostrarPuntoDeteccion(x, y);
   }
-  
+
   private void _mostrarAreaDeteccion(Rectangle[] manos) {
     //Muestra rectangulo con la mano detectada
     for (int i=0; i < manos.length; i++) {
@@ -45,13 +48,13 @@ class Detector {
       rect(manos[i].x, manos[i].y, manos[i].width, manos[i].height);
     }
   }
-  
-  private void _mostrarPuntoDeteccion(float x, float y){
+
+  private void _mostrarPuntoDeteccion(float x, float y) {
     //Ver el punto
     pushStyle();
     noStroke();
-    fill(255,0, 0);
-    ellipse(x, y, tam, tam);
+    fill(255, 0, 0);
+    ellipse(x, y, 15, 15);
     popStyle();
   }
 

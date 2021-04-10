@@ -33,7 +33,7 @@ void draw() {
   kinect.enableIR(true);
 
   // Descomentar cuando se este calibrando o comprobando la detección
-  //image(kinect.getVideoImage(), 0, 0);
+  image(kinect.getVideoImage(), 0, 0);
 
   detector.medicion(kinect.getVideoImage());
   mandarMensaje(detector.x/width, detector.y/height);
