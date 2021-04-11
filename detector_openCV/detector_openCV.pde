@@ -17,8 +17,8 @@ String rutaCascada = "C:/Users/Julia/Documents/GitHub/InterfacezNoTactiles/detec
 void setup() {
   size(640, 480);
 
-  oscP5 = new OscP5(this, 1);
-  myRemoteLocation = new NetAddress("127.0.0.1", 3);
+  oscP5 = new OscP5(this, 1000);
+  myRemoteLocation = new NetAddress("127.0.0.1", 3000);
 
   opencv =  new OpenCV(this, 640, 480); 
   detector = new Detector(opencv, rutaCascada);

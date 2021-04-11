@@ -35,8 +35,8 @@ class Detector {
       }
     }
     // Descomentar cuando se este calibrando o comprobando la detección 
-    _mostrarAreaDeteccion(manos);
-    _mostrarPuntoDeteccion(x, y);
+    //_mostrarAreaDeteccion(manos);
+    //_mostrarPuntoDeteccion(x, y);
   }
 
   private void _mostrarAreaDeteccion(Rectangle[] manos) {
