@@ -1,9 +1,9 @@
 class Timer {
-  int espera;
+  float espera;
   int time;
 
-  Timer(int espera_) {
-    espera = espera_;
+  Timer(float espera_) {
+    espera = espera_*1000;
   }
 
   void guardarTiempo() {
