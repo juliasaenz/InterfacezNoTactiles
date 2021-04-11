@@ -18,8 +18,8 @@ void setup() {
   //size(400, 225);
   size(1000, 562);
 
-  oscP5 = new OscP5(this, 2);
-  myRemoteLocation = new NetAddress("127.0.0.1", 1);
+  oscP5 = new OscP5(this, 4000);
+  myRemoteLocation = new NetAddress("127.0.0.1", 1000);
   // Manda el mensaje directo al método con el mismo nombre
   oscP5.plug(this, "posicionMano", "/posicionMano");
 
