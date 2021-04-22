@@ -2,6 +2,7 @@ import java.util.Map;
 import oscP5.*;
 import netP5.*;
 OscP5 oscP5;
+
 NetAddress myRemoteLocation;
 Detector detector = new Detector();
 
@@ -18,7 +19,7 @@ void setup() {
   myRemoteLocation = new NetAddress("127.0.0.1", 5000);
 
   oscP5 = new OscP5(this, myProperties);
-  oscP5.plug(this, "parseData", "/poses/xml");
+  oscP5.plug(this,"parseData","/poses/xml");
 }
 
 void draw() {

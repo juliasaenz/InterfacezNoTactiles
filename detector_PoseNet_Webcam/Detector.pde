@@ -35,7 +35,6 @@ class Detector {
         y = -1;
       }
     }
-    //ellipse(x, y, 15, 15);
   }
 
   ////////
