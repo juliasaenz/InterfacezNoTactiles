@@ -21,8 +21,10 @@ float x, y;
 
 void setup() {
   size(600, 400);
-
-  oscP5 = new OscP5(this, 1000);
+  OscProperties myProperties = new OscProperties();
+  myProperties.setDatagramSize(10000); 
+  myProperties.setRemoteAddress("127.0.0.1", 1000);
+  oscP5 = new OscP5(this, myProperties);
   myRemoteLocation = new NetAddress("127.0.0.1", 4000);
   
   runway = new RunwayHTTP(this);

@@ -18,7 +18,7 @@ void setup() {
   //size(400, 225);
   size(1000, 562);
 
-  oscP5 = new OscP5(this, 4000);
+  oscP5 = new OscP5(this, 5000);
   myRemoteLocation = new NetAddress("127.0.0.1", 1000);
   // Manda el mensaje directo al método con el mismo nombre
   oscP5.plug(this, "posicionMano", "/posicionMano");
@@ -35,6 +35,7 @@ void draw() {
     if (bInicio.cualTag() != -1) {
       timer.guardarTiempo();
       bInicio.reseteoValores();
+      transicion();
       estado = "menu";
     }
     bInicio.dibujar(x, y);
@@ -45,6 +46,7 @@ void draw() {
       if (botones[i].cualTag() != -1) {
         timer.guardarTiempo();
         botones[i].reseteoValores();
+        transicion();
         estado = "opcion"+(i+1);
       }
       botones[i].dibujar(x, y);
@@ -67,4 +69,10 @@ void draw() {
   }
 
   image(cursor, x, y);
+}
+
+void transicion(){
+ // se asegura de que no aparezcan botones seleccionados cuando se cambia de estado
+ x = -1;
+ y = -1;
 }

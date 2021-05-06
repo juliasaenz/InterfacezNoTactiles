@@ -7,7 +7,7 @@ class Boton {
   boolean enZona, prevEnZona = false;
   PImage img, imgSel;
   //timer
-  Timer timer = new Timer(2);
+  Timer timer = new Timer(4);
 
   Boton(int tag_, float x_, float y_, String num) {
     tag = tag_;

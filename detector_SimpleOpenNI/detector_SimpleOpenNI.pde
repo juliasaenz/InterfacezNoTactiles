@@ -13,7 +13,7 @@ Detector detector;
 void setup() {
   size(640, 480);
 
-  oscP5 = new OscP5(this, 1);
+  oscP5 = new OscP5(this, 1000);
   myRemoteLocation = new NetAddress("127.0.0.1", 3);
 
   kinect = new SimpleOpenNI(this);

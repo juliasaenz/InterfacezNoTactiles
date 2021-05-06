@@ -8,9 +8,9 @@ NetAddress myRemoteLocation;
 void setup() {  
   size(300,300);
   /* start oscP5, listening for incoming messages at port 12000 */
-  oscP5 = new OscP5(this,1);
+  oscP5 = new OscP5(this,1000);
   // A dónde mando
-  myRemoteLocation = new NetAddress("127.0.0.1",2);
+  myRemoteLocation = new NetAddress("127.0.0.1",5000);
 }
 
 void draw() {
